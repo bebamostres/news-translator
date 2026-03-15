@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main style={{ padding: '20px', fontFamily: 'sans-serif', maxWidth: '800px', margin: '0 auto' }}>
       <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>
-        🌍 海外テックニュース
+        海外テックニュース
       </h1>
       <p style={{ color: '#666', marginBottom: '24px', fontSize: '14px' }}>
         AIが海外の最新テックニュースを日本語に翻訳してお届け
@@ -62,10 +62,10 @@ export default function Home() {
               {article.summary}
             </p>
             <div style={{ display: 'flex', gap: '16px', fontSize: '12px', color: '#999' }}>
-              <span>🔗 {new URL(article.url).hostname}</span>
+              <span>{new URL(article.url).hostname}</span>
               {article.publishedAt && (
                 <span>
-                  📅 {new Date(article.publishedAt).toLocaleString('ja-JP', {
+                  {new Date(article.publishedAt).toLocaleString('ja-JP', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
