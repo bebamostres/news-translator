@@ -1,0 +1,14 @@
+name: Fetch News
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 1時間ごとに実行
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch news
+        run: |
+          curl -X GET "${{ secrets.SITE_URL }}/api/news"
