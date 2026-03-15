@@ -12,8 +12,15 @@ const supabase = createClient(
 );
 
 const RSS_FEEDS = [
+  // テック全般
   'https://techcrunch.com/feed/',
   'https://www.theverge.com/rss/index.xml',
+  'https://feeds.arstechnica.com/arstechnica/index',
+  'https://www.wired.com/feed/rss',
+  // AI特化
+  'https://venturebeat.com/category/ai/feed/',
+  // ガジェット
+  'https://www.engadget.com/rss.xml',
 ];
 
 export async function GET() {
@@ -39,13 +46,15 @@ export async function GET() {
           return null;
         }
 
-        const result = await model.generateContent(`Translate the following English news title and summary into natural Japanese. Return JSON only, no markdown.
+        const result = await model.generateContent(`以下の英語ニュースを日本語に翻訳してください。
+要約は3〜5文で詳しく書いてください。
+JSONのみ返してください。マークダウン不要です。
 
-Title: ${article.title}
-Summary: ${article.contentSnippet || article.summary || ''}
+タイトル: ${article.title}
+本文: ${article.contentSnippet || article.summary || ''}
 
-Format:
-{"title": "Japanese title", "summary": "Japanese summary"}`);
+返答形式:
+{"title": "日本語タイトル", "summary": "日本語要約（3〜5文）"}`);
 
         const text = result.response.text();
         const parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
