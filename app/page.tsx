@@ -46,4 +46,61 @@ export default function Home() {
   const titleStyle = {
     fontSize: '18px',
     fontWeight: 'bold',
-    marginBottom: '
+    marginBottom: '10px',
+    color: '#1a1a1a',
+  };
+
+  const summaryStyle = {
+    fontSize: '14px',
+    color: '#444',
+    lineHeight: '1.7',
+    marginBottom: '12px',
+  };
+
+  const metaStyle = {
+    display: 'flex',
+    gap: '16px',
+    fontSize: '12px',
+    color: '#999',
+  };
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleString('ja-JP', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  return (
+    <main style={containerStyle}>
+      <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>
+        Tech News
+      </h1>
+      <p style={{ color: '#666', marginBottom: '24px', fontSize: '14px' }}>
+        Latest tech news translated by AI
+      </p>
+      {loading && (
+        <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
+          Loading...
+        </div>
+      )}
+      {!loading && articles.map((article, index) => (
+        <div key={index} style={cardStyle}>
+          <a href={article.url} target="_blank" rel="noopener noreferrer" style={linkStyle}>
+            <h2 style={titleStyle}>{article.title}</h2>
+            <p style={summaryStyle}>{article.summary}</p>
+            <div style={metaStyle}>
+              <span>{new URL(article.url).hostname}</span>
+              {article.publishedAt && (
+                <span>{formatDate(article.publishedAt)}</span>
+              )}
+            </div>
+          </a>
+        </div>
+      ))}
+    </main>
+  );
+}
